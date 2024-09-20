@@ -1,0 +1,4 @@
+rootProject.name = 'bacen-sandbox'
+
+include(':ms-polling')
+include(':ms-send')
