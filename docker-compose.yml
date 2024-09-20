@@ -1,0 +1,47 @@
+services:
+  ms-core:
+    build: ./ms-core
+    ports:
+      - "8080:8080"
+    depends_on:
+      - rabbit
+    networks:
+      microservices_network:
+        aliases:
+          - core.ms
+  ms-polling:
+    build: ./ms-polling
+    ports:
+      - "8081:8080"
+    depends_on:
+      - ms-core
+      - rabbit
+    networks:
+      microservices_network:
+        aliases:
+          - polling.ms
+  ms-send:
+    build: ./ms-send
+    ports:
+      - "8082:8080"
+    depends_on:
+      - ms-core
+      - rabbit
+    networks:
+      microservices_network:
+        aliases:
+          - send.ms
+  rabbit:
+    image: rabbitmq:4.0.1-management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      microservices_network:
+        aliases:
+          - rabbitmq
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+networks:
+  microservices_network:

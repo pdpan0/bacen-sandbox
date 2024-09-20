@@ -1,24 +1,28 @@
 package br.com.pdpano.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity(name = "tb_packages")
 public class PackageEntity {
 
     @Id
-    @GeneratedValue
-    private final Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String code;
     @Column
-    private final String code;
-    @Column
-    private final String binary;
+    private String binary;
 
-    public PackageEntity(Long id, String code, String binary) {
-        this.id = id;
+    public PackageEntity() { }
+
+    public PackageEntity(String code, String binary) {
         this.code = code;
         this.binary = binary;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getBinary() {
+        return binary;
     }
 }

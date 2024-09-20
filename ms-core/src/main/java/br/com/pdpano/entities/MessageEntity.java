@@ -9,26 +9,24 @@ public class MessageEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private final Long id;
+    private Long id;
     @Column
-    private final String messageId;
+    private String messageId = "M" + UUID.randomUUID();
     @Column
-    private final String message;
+    private String message;
+    @Column
+    private boolean isPolling;
 
-    public MessageEntity(String messageId, String message) {
-        this.message = message;
-        this.id = null;
-        this.messageId = messageId;
-    }
+    public MessageEntity() { }
 
-    public MessageEntity(Long id, String messageId, String message) {
+    public MessageEntity(Long id, String message, boolean isPolling) {
         this.id = id;
-        this.messageId = messageId;
         this.message = message;
+        this.isPolling = isPolling;
     }
 
-    public static MessageEntity build(String messageId) {
-        return new MessageEntity(messageId, UUID.randomUUID().toString());
+    public static MessageEntity build(String message) {
+        return new MessageEntity(null, message, false);
     }
 
     public Long getId() {
@@ -37,5 +35,27 @@ public class MessageEntity {
 
     public String getMessageId() {
         return messageId;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public boolean isPolling() {
+        return isPolling;
+    }
+
+    public MessageEntity setMessageGotByPolling() {
+        return new MessageEntity(this.id, this.message, true);
+    }
+
+    @Override
+    public String toString() {
+        return "MessageEntity{" +
+                "id=" + id +
+                ", messageId='" + messageId + '\'' +
+                ", message='" + message + '\'' +
+                ", isPolling=" + isPolling +
+                '}';
     }
 }

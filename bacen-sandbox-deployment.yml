@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bacen-sandbox-deployment
+  labels:
+    app: b8x
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: b8x
+  template:
+    metadata:
+      labels:
+        app: b8x
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.14.2
+          ports:
+            - containerPort: 80
+        - name: b8x-send
+          image: bacen-sandbox-ms-send:latest
+          ports:
+            - containerPort: 81

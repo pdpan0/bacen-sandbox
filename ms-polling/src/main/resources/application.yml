@@ -1,0 +1,4 @@
+server.servlet.context-path: /api
+ms-polling:
+  package-scheduler.delay: 5000
+  clients.ms-core: core.ms:8080
