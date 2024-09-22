@@ -19,3 +19,12 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
         format-sql: true
     show-sql: true
+  stream:
+    bindings:
+      initiate-in-0:
+        destination: initiate
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USR}
+    password: ${RABBITMQ_PWD}

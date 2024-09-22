@@ -1,1 +1,6 @@
 server.servlet.context-path: /api
+spring.cloud:
+  stream:
+    bindings:
+      initiate-out-0:
+        destination: initiate-in-0
